@@ -1,12 +1,12 @@
 from datasette import hookimpl, Response
 from functools import lru_cache
 import hashlib
-import html
 import sqlite3
+
 import sqlite_utils
 
 
-@lru_cache
+@lru_cache(maxsize=3)
 def get_shorturl_db(datasette):
     plugin_config = datasette.plugin_config("datasette-shorturl")
     try:
@@ -14,8 +14,8 @@ def get_shorturl_db(datasette):
     except Exception as e:
         print("""The datasette-shorturl plugin is not configured properly!
 Ensure your plugin has a `database_path` field pointing to where you want your
-short URL DB to be on disk. This can be in your main `datasette/` directory (and
-therefore will be public) or it can be elsewhere.""")
+short URL DB to be on disk. This can be in your main `datasette/`
+directory (and therefore will be public) or it can be elsewhere.""")
         raise e
     # this will create the DB if it's not already created
     # and will explode if the directory path doesn't exist
@@ -23,7 +23,7 @@ therefore will be public) or it can be elsewhere.""")
     return sqlite_utils.Database(sqlite3.connect(database_path))
 
 
-@lru_cache
+@lru_cache(maxsize=3)
 def hash_from_request(request):
     m = hashlib.sha1()
     m.update(bytes(request.full_path, "utf-8"))
