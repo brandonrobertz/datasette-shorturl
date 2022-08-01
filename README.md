@@ -1,11 +1,18 @@
 # datasette-shorturl
 
-[![PyPI](https://img.shields.io/pypi/v/datasette-shorturl.svg)](https://pypi.org/project/datasette-shorturl/)
-[![Changelog](https://img.shields.io/github/v/release/brandonrobertz/datasette-shorturl?include_prereleases&label=changelog)](https://github.com/brandonrobertz/datasette-shorturl/releases)
-[![Tests](https://github.com/brandonrobertz/datasette-shorturl/workflows/Test/badge.svg)](https://github.com/brandonrobertz/datasette-shorturl/actions?query=workflow%3ATest)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/brandonrobertz/datasette-shorturl/blob/main/LICENSE)
 
 A Datasette plugin that provides short URLs for your queries
+
+![datasette-shorturl provides a header short URL link like in this screenshot](https://github.com/brandonrobertz/datasette-shorturl/blob/main/screenshot.png)
+
+Gives you a header link that takes query URLs that look like this:
+
+`/database?sql=select%0D%0A++count%28em.employer_type%29+*+100+%2F+%28%0D%0A++++select%0D%0A++++++count%28*%29%0D%0A++++from%0D%0A++++++employment+em%0D%0A++++++join+names+n+on+em.name_id+%3D+n.id%0D%0A++++++join+agencies+a+on+em.agency_id+%3D+a.id%0D%0A++++++join+employment+em2+on+em.next_employment_id+%3D+em2.id%0D%0A++++++join+agencies+a2+on+em2.agency_id+%3D+a2.id%0D%0A++++where%0D%0A++++++%28%0D%0A++++++++lower%28a2.agency%29+like+%22%25school%25%22%0D%0A++++++++or+lower%28a2.agency%29+like+%22%25state%22%0D%0A++++++++or+lower%28a2.agency%29+like+%22%25military%25%22%0D%0A++++++++or+lower%28a2.agency%29+like+%22%25deputy%25%22%0D%0A++++++++or+lower%28a2.agency%29+like+%22%25international%25%22%0D%0A++++++%29%0D%0A++++++and+a.id+%21%3D+a2.id%0D%0A++++++and+em.start_date+not+like+%271901%25%27%0D%0A++++++and+em.start_date+is+not+null%0D%0A++%29+as+pct_of_total%2C%0D%0A++em.employer_type%0D%0Afrom%0D%0A++employment+em%0D%0A++join+names+n+on+em.name_id+%3D+n.id%0D%0A++join+agencies+a+on+em.agency_id+%3D+a.id%0D%0A++join+employment+em2+on+em.next_employment_id+%3D+em2.id%0D%0A++join+agencies+a2+on+em2.agency_id+%3D+a2.id%0D%0Awhere%0D%0A++%28%0D%0A++++lower%28a2.agency%29+like+%22%25school%25%22%0D%0A++++or+lower%28a2.agency%29+like+%22%25state%22%0D%0A++++or+lower%28a2.agency%29+like+%22%25military%25%22%0D%0A++++or+lower%28a2.agency%29+like+%22%25deputy%25%22%0D%0A++++or+lower%28a2.agency%29+like+%22%25international%25%22%0D%0A++%29%0D%0A++and+a.id+%21%3D+a2.id%0D%0A++and+em.start_date+not+like+%271901%25%27%0D%0A++and+em.start_date+is+not+null%0D%0Agroup+by%0D%0A++em.employer_type%0D%0Aorder+by%0D%0A++count%28em.employer_type%29+desc`
+
+And turns them into URLs that look like this:
+
+`/-/shorturl/40cc69dd62bc0f75665ca3228dfc9f728a08b693`
 
 ## Installation
 
