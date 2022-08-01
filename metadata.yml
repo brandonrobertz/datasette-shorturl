@@ -1,0 +1,9 @@
+title: WA Police & Sheriff's Internal Afffairs Records 2000-2020
+description_html: "<p>Internal investigations, written reprimands, and citizen complaints filed against police officers and sheriff's deputies between the years 2000 and 2020.</p><p>In response to my records requests, agencies provided all sorts of responsive records. You'll find everything from disciplinary memos, letters of reprimand/counseling, IA Pro/internal risk assessment system dumps, use of force reports, citizen complaints and even entire IA case files. To get an overview of what's available from which agency, check the <a href='/0_agencies_metadata/agencies?_size=200'>agencies metadata table</a>. The main aggregate functionality provided is a <a href='/-/search'>cross-agency search</a> interface. You can also access it from the top right menu.</p><p>This is maintained by <a href='mailto:brandon@bxroberts.org'>Brandon Roberts</a>. Reach out if you have any requests or run into any problems! Also note that this is running on a small server, so if a lot of people are searching at once things could slow down. If this happens, just be patient!</p>"
+
+plugins:
+  datasette-shorturl:
+    database_filepath: ./secrets/shorturl.db
+
+extra_css_urls:
+  - /static/css/wapd.css
