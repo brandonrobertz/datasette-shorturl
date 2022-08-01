@@ -11,7 +11,7 @@ A Datasette plugin that provides short URLs for your queries
 
 Install this plugin in the same environment as Datasette.
 
-    datasette install datasette-shorturl
+    datasette install https://github.com/brandonrobertz/datasette-shorturl/archive/refs/tags/0.1.0.zip
 
 ## Usage
 
