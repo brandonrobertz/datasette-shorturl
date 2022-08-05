@@ -38,7 +38,11 @@ def extra_template_vars(request, datasette):
     that overwrites, but I can't think of a use case where this would
     be necessary.
     """
+    if not request:
+        return {}
     full = request.full_path
+    if not full:
+        return {}
     # skip plugin pages
     if "/-/" in full:
         return {}
