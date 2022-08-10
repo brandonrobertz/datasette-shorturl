@@ -41,7 +41,8 @@ def extra_template_vars(request, datasette):
     if not request:
         return {}
     full = request.full_path
-    if not full:
+    print("Full", full)
+    if not full or full == "/":
         return {}
     # skip plugin pages
     if "/-/" in full:
