@@ -31,7 +31,7 @@ def hash_from_request(request):
 
 
 @hookimpl
-def extra_template_vars(request, datasette):
+def extra_template_vars(request, datasette, view_name):
     """
     Build a short URL for this request page if it doesn't exist.
     NOTE: This does not overwrite! We could introduce a plugin setting
@@ -41,7 +41,8 @@ def extra_template_vars(request, datasette):
     if not request:
         return {}
     full = request.full_path
-    print("Full", full)
+    if view_name != "database":
+        return {}
     if not full or full == "/":
         return {}
     # skip plugin pages
