@@ -12,14 +12,7 @@ def get_shorturl_db(datasette):
     try:
         database_path = plugin_config["database_path"]
     except Exception as e:
-        print("""The datasette-shorturl plugin is not configured properly!
-Ensure your plugin has a `database_path` field pointing to where you want your
-short URL DB to be on disk. This can be in your main `datasette/`
-directory (and therefore will be public) or it can be elsewhere.""")
-        raise e
-    # this will create the DB if it's not already created
-    # and will explode if the directory path doesn't exist
-    # TODO: we could catch the error and print clarifying info
+        database_path = "shorturl.db"
     return sqlite_utils.Database(sqlite3.connect(database_path))
 
 
@@ -49,6 +42,8 @@ def extra_template_vars(request, datasette, view_name):
     if "/-/" in full:
         return {}
     db = get_shorturl_db(datasette)
+    if not db:
+        return {}
     h = hash_from_request(request)
     short = f"/-/shorturl/{h}"
     db["urls"].insert({
